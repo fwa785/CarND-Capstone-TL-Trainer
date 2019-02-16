@@ -138,10 +138,10 @@ def createTfExample(singleFileData, path):
 
     # for each row in the current .xml file's data . . . (each row in the .xml file corresponds to one box)
     for index, row in singleFileData.object.iterrows():
-        xMins.append(row['xmin'] / width)
-        xMaxs.append(row['xmax'] / width)
-        yMins.append(row['ymin'] / height)
-        yMaxs.append(row['ymax'] / height)
+        xMins.append(float(row['xmin']) / width)
+        xMaxs.append(float(row['xmax']) / width)
+        yMins.append(float(row['ymin']) / height)
+        yMaxs.append(float(row['ymax']) / height)
         classesAsText.append(row['class'].encode('utf8'))
         classesAsInts.append(classAsTextToClassAsInt(row['class']))
     # end for
@@ -170,8 +170,14 @@ def classAsTextToClassAsInt(classAsText):
     # ToDo: If you have more than one classification, add an if statement for each
     # ToDo: i.e. if you have 3 classes, you would have 3 if statements and then the else
 
-    if classAsText == 'traffic_light':
+    if classAsText == 'Green':
         return 1
+    if classAsText == 'Red':
+        return 2
+    if classAsText == 'Yellow':
+        return 3
+    if classAsText == 'off':
+        return 4
     else:
         print("error in class_text_to_int(), row_label could not be identified")
         return -1
